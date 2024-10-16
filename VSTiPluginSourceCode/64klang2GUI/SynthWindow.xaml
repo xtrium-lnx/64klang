@@ -122,45 +122,46 @@
             <!-- EndRegion: SpectrumAnalyzer -->
         </ResourceDictionary>
     </Window.Resources>
-        
-	<Grid Name="EditGrid">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="20" />
-			<RowDefinition Height="680*" />
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="1280*"/>
-		</Grid.ColumnDefinitions>
-		<Grid Name="HeaderGrid">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="20" />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
+
+    <Grid Name="EditGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="680*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1280*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Name="HeaderGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="100"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="120"/>				
-			</Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <Button Name="LoadPatch" Content="Load Patch" FontWeight="Bold" Click="LoadPatch_Click" Padding="2,0"></Button>
-				<Button Name="SavePatch" Content="Save Patch" FontWeight="Bold" Click="SavePatch_Click" Padding="2,0"></Button>
-				<Button Name="ReserPatch" Content="Reset Patch" FontWeight="Bold" Click="ResetPatch_Click" Padding="2,0"></Button>
-				<Button Name="EditWavetables" Content="Edit Wavetables" FontWeight="Bold" Margin="10,0" Click="EditWavetables_Click" Padding="2,0"></Button>
-				<Button Name="ExportPatch" Content="Export Patch" FontWeight="Bold" Click="ExportPatch_Click" Padding="2,0" ToolTip="Export the current patch to .h file"></Button>
-				<ToggleButton Name="ExportSong" Content="Export Song" FontWeight="Bold" Padding="2,0" Checked="ExportSong_Checked" Unchecked="ExportSong_Unchecked" ToolTip="Record the song and export to .h file"></ToggleButton>
-				<Label Content="Export Quant.:" FontWeight="Bold" Margin="0,0,0,0" Padding="2,0"></Label>
-				<ComboBox Name="SongQuantization" Padding="2,0" SelectedIndex="3" ToolTip="Note/Event Quantization for the song recording in number of samples">
-					<ComboBoxItem Content="16" />
-					<ComboBoxItem Content="32" />
-					<ComboBoxItem Content="48" />
-					<ComboBoxItem Content="64" />
-					<ComboBoxItem Content="80" />
-					<ComboBoxItem Content="96" />
-					<ComboBoxItem Content="112" />
-					<ComboBoxItem Content="128" />
-					<ComboBoxItem Content="144" />
+                <Button Name="SavePatch" Content="Save Patch" FontWeight="Bold" Click="SavePatch_Click" Padding="2,0"></Button>
+                <Button Name="ReserPatch" Content="Reset Patch" FontWeight="Bold" Click="ResetPatch_Click" Padding="2,0"></Button>
+                <Button Name="EditWavetables" Content="Edit Wavetables" FontWeight="Bold" Margin="10,0" Click="EditWavetables_Click" Padding="2,0"></Button>
+                <Button Name="ExportPatch" Content="Export Patch" FontWeight="Bold" Click="ExportPatch_Click" Padding="2,0" ToolTip="Export the current patch to .h file"></Button>
+                <ToggleButton x:Name="ExportSong" Content="Export Song" FontWeight="Bold" Padding="2,0" Checked="ExportSong_Checked" Unchecked="ExportSong_Unchecked" ToolTip="Record the song and export to .h file"/>
+                <ToggleButton Name="ExportAllBin" Content="Export Binary" FontWeight="Bold" Padding="2,0" Margin="10,0" Checked="ExportAllBin_Checked" Unchecked="ExportAllBin_Unchecked" ToolTip="Record the song, then export everything to a binary file for later use"></ToggleButton>
+                <Label Content="Export Quant.:" FontWeight="Bold" Margin="0,0,0,0" Padding="2,0"></Label>
+                <ComboBox Name="SongQuantization" Padding="2,0" SelectedIndex="3" ToolTip="Note/Event Quantization for the song recording in number of samples">
+                    <ComboBoxItem Content="16" />
+                    <ComboBoxItem Content="32" />
+                    <ComboBoxItem Content="48" />
+                    <ComboBoxItem Content="64" />
+                    <ComboBoxItem Content="80" />
+                    <ComboBoxItem Content="96" />
+                    <ComboBoxItem Content="112" />
+                    <ComboBoxItem Content="128" />
+                    <ComboBoxItem Content="144" />
                     <ComboBoxItem Content="160" />
                     <ComboBoxItem Content="176" />
                     <ComboBoxItem Content="192" />
@@ -168,9 +169,9 @@
                     <ComboBoxItem Content="224" />
                     <ComboBoxItem Content="240" />
                     <ComboBoxItem Content="256" />
-				</ComboBox>
-				<Label Content="Jump To:" FontWeight="Bold" Margin="10,0,0,0" Padding="2,0"></Label>
-				<ComboBox Name="JumpToChannel" Padding="2,0" SelectionChanged="JumpToChannel_SelectionChanged" SelectedIndex="-1" ToolTip="Bring the selected channel into view">
+                </ComboBox>
+                <Label Content="Jump To:" FontWeight="Bold" Margin="10,0,0,0" Padding="2,0"></Label>
+                <ComboBox Name="JumpToChannel" Padding="2,0" SelectionChanged="JumpToChannel_SelectionChanged" SelectedIndex="-1" ToolTip="Bring the selected channel into view">
                     <ComboBoxItem Content="Channel 1" />
                     <ComboBoxItem Content="Channel 2" />
                     <ComboBoxItem Content="Channel 3" />
@@ -186,17 +187,17 @@
                     <ComboBoxItem Content="Channel 13" />
                     <ComboBoxItem Content="Channel 14" />
                     <ComboBoxItem Content="Channel 15" />
-					<ComboBoxItem Content="Channel 16" />
+                    <ComboBoxItem Content="Channel 16" />
                     <ComboBoxItem Content="Synth Root" />
                 </ComboBox>
                 <Label Content="Search:" FontWeight="Bold" Margin="10,0,0,0" Padding="2,0"></Label>
                 <TextBox Name="SearchBox" Padding="2,0" Width="80" TextChanged="SearchBox_TextChanged"></TextBox>
             </StackPanel>
 
-			<Button Grid.Column="2" Name="Panic" Content="P.A.N.I.C" Margin="10,0,0,0" Click="Panic_Click" FontWeight="Bold" Padding="0" ToolTip="Clear all buffers and notes currently playing in the synth"></Button>
-			<CheckBox Grid.Column="3" Name="WantTopMost" Content="TopMost" Margin="10,0,0,0" IsChecked="false" Background="White" Foreground="Black" FontWeight="Bold" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Checked="WantTopMost_Checked" Unchecked="WantTopMost_Unchecked" />
+            <Button Grid.Column="2" Name="Panic" Content="P.A.N.I.C" Margin="10,0,0,0" Click="Panic_Click" FontWeight="Bold" Padding="0" ToolTip="Clear all buffers and notes currently playing in the synth"></Button>
+            <CheckBox Grid.Column="3" Name="WantTopMost" Content="TopMost" Margin="10,0,0,0" IsChecked="false" Background="White" Foreground="Black" FontWeight="Bold" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Checked="WantTopMost_Checked" Unchecked="WantTopMost_Unchecked" />
             <Label Name="VoiceCount" Grid.Column="4" Content="Total Voices: 123" Padding="0" Margin="10,0,0,0" VerticalContentAlignment="Center" FontWeight="Bold" Background="Black" Foreground="White" />
-		</Grid>
+        </Grid>
         <ScrollViewer Name="NavigationScrollViewer" Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Margin="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseEnter="NavigationScrollViewer_MouseEnter" PreviewMouseRightButtonDown="NavigationScrollViewer_PreviewMouseRightButtonDown" PreviewMouseRightButtonUp="NavigationScrollViewer_PreviewMouseRightButtonUp" PreviewMouseWheel="NavigationScrollViewer_PreviewMouseWheel" PreviewMouseMove="NavigationScrollViewer_PreviewMouseMove">
             <my:SynthCanvas x:Name="MainCanvas" Width="32768" Height="32768"/>
         </ScrollViewer>
@@ -207,7 +208,7 @@
                     <ScaleTransform ScaleX="0.75" ScaleY="0.75" />
                 </StackPanel.LayoutTransform>
             </StackPanel>
-        </ScrollViewer>        
-	</Grid>
+        </ScrollViewer>
+    </Grid>
 </Window>
 

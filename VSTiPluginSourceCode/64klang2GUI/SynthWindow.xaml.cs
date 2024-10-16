@@ -414,8 +414,9 @@ namespace _64klang2GUI
 		private void ExportSong_Checked(object sender, RoutedEventArgs e)
 		{
 			this.ExportSong.Content = "Recording ...";
+            this.ExportAllBin.IsEnabled = false;
 
-			if (startRecordingHandler != null)
+            if (startRecordingHandler != null)
 				startRecordingHandler();
 		}
 		private void ExportSong_Unchecked(object sender, RoutedEventArgs e)
@@ -424,8 +425,9 @@ namespace _64klang2GUI
 				stopRecordingHandler();
 
 			this.ExportSong.Content = "Export Song";
+            this.ExportAllBin.IsEnabled = false;
 
-			SaveFileDialog sfd = new SaveFileDialog();
+            SaveFileDialog sfd = new SaveFileDialog();
 			if (LastPatchName != null)
 			{
 				FileInfo fi = new FileInfo(LastPatchName);
@@ -444,11 +446,48 @@ namespace _64klang2GUI
 			}
 		}
 
-#endregion		
+        public delegate void ExportAllBinHandler(string filename, int timeQuant);
+        public ExportAllBinHandler exportAllBinHandler;
+        private void ExportAllBin_Checked(object sender, RoutedEventArgs e)
+        {
+            this.ExportAllBin.Content = "Recording ...";
+			this.ExportSong.IsEnabled = false;
 
-#region WaveFile
+            if (startRecordingHandler != null)
+                startRecordingHandler();
+        }
+        private void ExportAllBin_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (stopRecordingHandler != null)
+                stopRecordingHandler();
 
-		private void EditWavetables_Click(object sender, RoutedEventArgs e)
+            this.ExportAllBin.Content = "Export Binary";
+            this.ExportSong.IsEnabled = true;
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (LastPatchName != null)
+            {
+                FileInfo fi = new FileInfo(LastPatchName);
+                sfd.InitialDirectory = fi.DirectoryName;
+            }
+            sfd.FileName = "exported_song.64ksb";
+            sfd.DefaultExt = ".h";
+            sfd.Filter = "64klang2 song binary (.64ksb)|*.64ksb";
+            Nullable<bool> result = sfd.ShowDialog();
+            if (result == true)
+            {
+                ComboBoxItem cbi = this.SongQuantization.SelectedItem as ComboBoxItem;
+                int quantSamples = Convert.ToInt32(cbi.Content.ToString());
+                if (exportAllBinHandler != null)
+                    exportAllBinHandler(sfd.FileName, quantSamples);
+            }
+        }
+
+        #endregion
+
+        #region WaveFile
+
+        private void EditWavetables_Click(object sender, RoutedEventArgs e)
 		{
 			if (WFD == null)
 			{

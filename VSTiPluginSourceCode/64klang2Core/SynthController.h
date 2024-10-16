@@ -172,9 +172,9 @@ public:
 
 	// song recording and export
 	void exportSong(const std::string& filename, int timeQuant);
-	void doExportSong(const std::string& filename);
 	void recursiveCollectUsedNodes(SynthNode* node, std::map<SynthNode*, bool>& usedNodes);
 	void exportPatch(const std::string& filename);
+	void exportAllAsSingleBlob(const std::string& filename, int timeQuant);
 	void startRecording();
 	void stopRecording();
 	bool isRecording();

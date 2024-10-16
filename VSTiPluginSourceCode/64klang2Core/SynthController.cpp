@@ -5879,6 +5879,51 @@ void SynthController::exportPatch(const std::string& filename)
 	fclose(expBlob);
 }
 
+void SynthController::exportAllAsSingleBlob(const std::string& filename, int timeQuant)
+{
+	char tempPath[MAX_PATH - 14];
+	DWORD tempPathLength = GetTempPathA(MAX_PATH - 14, tempPath);
+
+	char tempPatchFile[MAX_PATH];
+	GetTempFileNameA(tempPath, "64klang_patch_", 0, tempPatchFile);
+	exportPatch(std::string(tempPatchFile));
+
+	char tempSongFile[MAX_PATH];
+	GetTempFileNameA(tempPath, "64klang_song_", 0, tempSongFile);
+	exportSong(std::string(tempSongFile), timeQuant);
+
+	uint8_t* patchBytes = nullptr;
+	FILE* patchBlob = nullptr;
+	fopen_s(&patchBlob, (std::string(tempPatchFile) + ".blob").c_str(), "rb");
+	fseek(patchBlob, 0, SEEK_END);
+	auto patchBlobSize = size_t(ftell(patchBlob));
+	fseek(patchBlob, 0, SEEK_SET);
+	patchBytes = new uint8_t[patchBlobSize];
+	fread(patchBytes, 1, patchBlobSize, patchBlob);
+	fclose(patchBlob);
+
+	uint8_t* songBytes = nullptr;
+	FILE* songBlob = nullptr;
+	fopen_s(&songBlob, (std::string(tempSongFile) + ".blob").c_str(), "rb");
+	fseek(songBlob, 0, SEEK_END);
+	auto songBlobSize = size_t(ftell(songBlob));
+	fseek(songBlob, 0, SEEK_SET);
+	songBytes = new uint8_t[songBlobSize];
+	fread(songBytes, 1, songBlobSize, songBlob);
+	fclose(songBlob);
+
+	FILE* finalFile;
+	fopen_s(&finalFile, filename.c_str(), "wb");
+	fwrite(&patchBlobSize, sizeof(size_t), 1, finalFile);
+	fwrite(&songBlobSize, sizeof(size_t), 1, finalFile);
+	fwrite(patchBytes, 1, patchBlobSize, finalFile);
+	fwrite(songBytes, 1, songBlobSize, finalFile);
+	fclose(finalFile);
+
+	delete[] patchBytes;
+	delete[] songBytes;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // command forwarding to core
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

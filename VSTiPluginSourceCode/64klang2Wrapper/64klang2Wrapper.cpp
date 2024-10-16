@@ -161,6 +161,7 @@ public:
 			mainWindow->startRecordingHandler = gcnew _64klang2GUI::SynthWindow::StartRecordingHandler(this, &DotNetGUI::StartRecordingCB);
 			mainWindow->stopRecordingHandler = gcnew _64klang2GUI::SynthWindow::StopRecordingHandler(this, &DotNetGUI::StopRecordingCB);
 			mainWindow->exportSongHandler = gcnew _64klang2GUI::SynthWindow::ExportSongHandler(this, &DotNetGUI::ExportSongCB);	
+			mainWindow->exportAllBinHandler = gcnew _64klang2GUI::SynthWindow::ExportAllBinHandler(this, &DotNetGUI::ExportAllBinCB);
 			mainWindow->loadChannelHandler = gcnew _64klang2GUI::SynthWindow::LoadChannelHandler(this, &DotNetGUI::LoadChannelCB);
 			mainWindow->saveChannelHandler = gcnew _64klang2GUI::SynthWindow::SaveChannelHandler(this, &DotNetGUI::SaveChannelCB);
 
@@ -637,6 +638,14 @@ private:
 	{
 		std::string fname = msclr::interop::marshal_as<std::string>(filename);
 		SynthController::instance()->exportSong(fname, timeQuant);
+	}
+
+	// -------------------------------------------------------------------------------------------
+
+	void ExportAllBinCB(System::String^ filename, int timeQuant)
+	{
+		std::string fname = msclr::interop::marshal_as<std::string>(filename);
+		SynthController::instance()->exportAllAsSingleBlob(fname, timeQuant);
 	}
 
 	// -------------------------------------------------------------------------------------------
